@@ -2,7 +2,7 @@
 
 class MagicArray
    
-    attr_reader :ent
+    #attr_reader :ent
 
 
     default = 0
@@ -15,6 +15,8 @@ class MagicArray
         @default = input
         @magicArray = Array.new(input)
         @has_Entry = Array.new(input)
+        @ent = 0
+        @pos = 0
 
         #loop
         for i in 0..input do
@@ -134,8 +136,9 @@ class MagicArray
 
     # private helper method for the has(input) method
     def attempted(a)
+
         if a == 0 && @pos == 0
-            has_entry[@pos] = a
+            @has_Entry[@pos] = a
             @pos += 1
         else
             for i in 0..a do 
