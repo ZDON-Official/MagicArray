@@ -20,7 +20,7 @@ class MagicArray
 
         #loop
         for i in 0..input do
-            chooce_set(i)
+            set(i)
         end
     end
 
@@ -35,61 +35,22 @@ class MagicArray
             return @magicArray[index]
         end 
         
-        chooce_set(index, @default)
+        set(index, @default)
         return @default
     end
 
 
     # because ruby doesn't support method overloading, this method is here to check if the method
     # set will take one parameter or 2
-    def chooce_set(index, data = nil)
+    def set(index, data = nil)
         if data == nil
             set_default(index)
         else 
-            set(index, data)
+            set_2(index, data)
         end
     end
 
-    # set the value at index with the default value
-    def set_default(index)
-        @magicArray[index] = @default
-    end
-
-    # set the value at inde with data 
-    def set(index, data)
-        if index < currentSize() && index >= 0 
-            @magicArray[index] = data
-        else
-            # create a temp array
-            temp = Array.new(currentSize())
-            temp_has = Array.new(currentSize())
-
-            # move the value of MagicArray to temp Array
-
-            for i in 0..currentSize() do 
-                temp[i] = @magicArray[i]
-                temp_has[i] = @has_Entry[i]
-            end
-
-            # create a new MagicArray of bigger size
-            @magicArray = Array.new(index + 1)
-            chooce_set(index)
-
-            has_entry = Array.new(index + 1)
     
-            for i in 0..currentSize() do 
-                @magicArray[i] = temp[i]
-                @has_Entry[i] = temp_has[i]
-            end
-
-            # call the attempted private method
-            attempted(index)
-            @magicArray[index] = data
-        end
-        if has(index) == false
-            @ent += 1
-        end
-    end
 
     # returns the current size of the array
     def currentSize
@@ -151,6 +112,48 @@ class MagicArray
                     break
                 end
             end
+        end
+    end
+
+
+    # set the value at index with the default value
+    def set_default(index)
+        @magicArray[index] = @default
+    end
+
+    # set the value at inde with data 
+    def set_2(index, data)
+        if index < currentSize() && index >= 0 
+            @magicArray[index] = data
+        else
+            # create a temp array
+            temp = Array.new(currentSize())
+            temp_has = Array.new(currentSize())
+
+            # move the value of MagicArray to temp Array
+
+            for i in 0..currentSize() do 
+                temp[i] = @magicArray[i]
+                temp_has[i] = @has_Entry[i]
+            end
+
+            # create a new MagicArray of bigger size
+            @magicArray = Array.new(index + 1)
+            set(index)
+
+            has_entry = Array.new(index + 1)
+    
+            for i in 0..currentSize() do 
+                @magicArray[i] = temp[i]
+                @has_Entry[i] = temp_has[i]
+            end
+
+            # call the attempted private method
+            attempted(index)
+            @magicArray[index] = data
+        end
+        if has(index) == false
+            @ent += 1
         end
     end
 end
