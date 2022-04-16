@@ -22,21 +22,50 @@ class MagicArray2
         @@indices = MagicArray.new(input)
         @@data = MagicArray.new(input)
 
-        i = 0
-        while i < input
-            @@indices.chooce_set(i,i)
-            i += 1
+        # i = 0
+        # while i < input
+        #     @@indices.set(i,i)
+        #     i += 1
+        # end
+
+        for i in 0..input-1
+            @@indices.set(i,i)
         end
 
     end
 
 
+    # gets the value from the MagicArray at index input
+    def get(input)
+        if(input > @@indices.currentSize())
+            @@indices.set(input, input)
+        end
+
+        return @@data.get(@@indices.get(input))
+    end
 
 
+    # Sets the value in the given index
+    def set(index, data)
+        @@indices.set(index, index)
+        @@data.set(@@indices.get(index), data)
+    end
 
 
+    # Returns the total number of positions accessed by 'set' or 'get'
+    def total_entries()
+        return @@data.total_entries()
+    end
+
+    # returns the current size of the MagicArray
+    def currentSize()
+        return @@data.currentSize()
+    end
 
 
+    def has(input)
+        return @@data.has(@@indices.get(input))
+    end
 
 
 end
